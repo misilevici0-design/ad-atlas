@@ -36,7 +36,6 @@
     ],
     "win": {
       "icon": "desktop/icon.ico",
-      "artifactName": "AD-Atlas-${version}-${arch}-${target}.${ext}",
       "target": [
         {
           "target": "nsis",
