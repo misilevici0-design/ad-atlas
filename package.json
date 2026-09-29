@@ -1,0 +1,60 @@
+{
+  "name": "ad-atlas-desktop",
+  "version": "1.0.0",
+  "description": "Настольная интерактивная карта AD Atlas",
+  "main": "desktop/main.js",
+  "author": "misilevici0-design",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable"
+  },
+  "devDependencies": {
+    "electron": "37.2.6",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "by.misilevici.adatlas",
+    "productName": "AD Atlas",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "desktop/**/*",
+      "index.html",
+      "app.js",
+      "style.css",
+      "data.js",
+      "map.webp",
+      "leaflet.js",
+      "leaflet.css",
+      "LEAFLET-LICENSE.txt",
+      "favicon.svg",
+      "*.png"
+    ],
+    "win": {
+      "icon": "desktop/icon.ico",
+      "artifactName": "AD-Atlas-${version}-${arch}-${target}.${ext}",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AD Atlas",
+      "installerLanguages": ["ru_RU"]
+    }
+  }
+}

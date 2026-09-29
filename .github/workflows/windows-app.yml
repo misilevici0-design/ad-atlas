@@ -1,0 +1,57 @@
+name: Windows application
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "desktop/**"
+      - "package.json"
+      - ".github/workflows/windows-app.yml"
+    tags:
+      - "desktop-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows application
+        run: npm run dist:win
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AD-Atlas-Windows
+          path: |
+            dist/*.exe
+            dist/*.blockmap
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-v1.0.0
+          name: AD Atlas для Windows v1.0.0
+          make_latest: true
+          body: |
+            Настольная версия AD Atlas для Windows 10/11 x64.
+
+            - `AD-Atlas-*-Setup.exe` — установщик с ярлыком.
+            - `AD-Atlas-*-portable.exe` — переносная версия без установки.
+          files: |
+            dist/*.exe
+            dist/*.blockmap
