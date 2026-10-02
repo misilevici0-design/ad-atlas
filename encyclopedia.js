@@ -1,10 +1,10 @@
 'use strict';
-const STORAGE_KEY='ad-atlas-encyclopedia-v1';
+const STORAGE_KEY='ad-atlas-encyclopedia-v1',INGREDIENT_LIBRARY_KEY='ad-atlas-ingredient-library-v1';
 const DEFAULT_CATEGORIES=['Разбор','Ремонт I','Ремонт II','Сборка I','Сборка II','Устройства I','Устройства II'].map((name,index)=>({id:`category-${index+1}`,name}));
 const $=id=>document.getElementById(id);
 const uid=()=>crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`;
 const clone=value=>JSON.parse(JSON.stringify(value));
-let state=loadState(),activeCategory='all',editingCraftId=null,draftImage='',draftIngredients=[],toastTimer;
+let state=loadState(),ingredientLibrary=loadIngredientLibrary(),activeCategory='all',editingCraftId=null,draftImage='',draftIngredients=[],toastTimer;
 
 function cleanImage(value){return typeof value==='string'&&/^data:image\/(?:png|jpeg|webp|gif);base64,/i.test(value)?value:''}
 function validate(raw){
@@ -15,7 +15,11 @@ function validate(raw){
   return{categories,craftsVersion:1,crafts};
 }
 function loadState(){try{const saved=localStorage.getItem(STORAGE_KEY);if(saved)return validate(JSON.parse(saved))}catch{}return{categories:clone(DEFAULT_CATEGORIES),craftsVersion:1,crafts:[]}}
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$('saveState').textContent='Изменения сохранены';return true}catch{$('saveState').textContent='Не удалось сохранить';toast('Недостаточно места. Экспортируйте JSON и уменьшите изображения.');return false}}
+function ingredientKey(value){return String(value||'').trim().toLocaleLowerCase('ru').replace(/ё/g,'е')}
+function loadIngredientLibrary(){try{const saved=JSON.parse(localStorage.getItem(INGREDIENT_LIBRARY_KEY)||'[]');if(Array.isArray(saved))return saved.filter(item=>item&&typeof item.name==='string'&&item.name.trim()).slice(0,1000).map(item=>({name:item.name.trim().slice(0,80),image:cleanImage(item.image)}))}catch{}return[]}
+function rememberIngredients(items,persist=true){let changed=false;for(const item of items){const name=String(item?.name||'').trim().slice(0,80);if(!name)continue;const key=ingredientKey(name),existing=ingredientLibrary.find(saved=>ingredientKey(saved.name)===key),image=cleanImage(item.image);if(existing){if(image&&existing.image!==image){existing.image=image;changed=true}}else{ingredientLibrary.push({name,image});changed=true}}ingredientLibrary.sort((a,b)=>a.name.localeCompare(b.name,'ru'));if(persist&&changed)try{localStorage.setItem(INGREDIENT_LIBRARY_KEY,JSON.stringify(ingredientLibrary))}catch{toast('Крафт сохранён, но библиотеке ингредиентов не хватило места')}return changed}
+rememberIngredients(state.crafts.flatMap(craft=>craft.ingredients));
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));rememberIngredients(state.crafts.flatMap(craft=>craft.ingredients));$('saveState').textContent='Изменения сохранены';return true}catch{$('saveState').textContent='Не удалось сохранить';toast('Недостаточно места. Экспортируйте JSON и уменьшите изображения.');return false}}
 function escapeHtml(value){return String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]))}
 function toast(message){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.add('show');toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
 function categoryName(id){return state.categories.find(item=>item.id===id)?.name||'Без категории'}
@@ -42,7 +46,9 @@ function renderCrafts(){
 function render(){renderCategories();renderCrafts()}
 function renderImagePreview(){$('craftImagePreview').innerHTML=draftImage?`<img src="${draftImage}" alt="Предпросмотр">`:'<span>Изображение результата</span>'}
 function renderIngredients(){
-  $('ingredientList').innerHTML=draftIngredients.length?draftIngredients.map((item,index)=>`<div class="ingredient-row" data-ingredient-index="${index}"><label class="ingredient-image" title="Выбрать изображение из файла">${item.image?`<img src="${item.image}" alt="">`:'＋'}<input type="file" accept="image/*" data-ingredient-file="${index}"></label><input type="text" maxlength="80" value="${escapeHtml(item.name)}" placeholder="Название ресурса" data-ingredient-name="${index}"><input type="number" min="1" max="9999" value="${item.qty}" aria-label="Количество" data-ingredient-qty="${index}"><div class="ingredient-row-actions"><button type="button" data-ingredient-paste="${index}" title="Вставить фотографию из буфера обмена">▣ Вставить фото</button><button type="button" data-ingredient-remove="${index}" title="Удалить ингредиент">×</button></div></div>`).join(''):'<div class="empty">Ингредиентов пока нет. Нажмите «Добавить ингредиент».</div>';
+  const savedOptions=ingredientLibrary.map((saved,index)=>`<option value="${index}">${escapeHtml(saved.name)}</option>`).join('');
+  $('ingredientList').innerHTML=draftIngredients.length?draftIngredients.map((item,index)=>`<div class="ingredient-row" data-ingredient-index="${index}"><label class="ingredient-image" title="Выбрать изображение из файла">${item.image?`<img src="${item.image}" alt="">`:'＋'}<input type="file" accept="image/*" data-ingredient-file="${index}"></label><div class="ingredient-name-fields"><select data-ingredient-pick="${index}" aria-label="Выбрать сохранённый ингредиент"><option value="">Выбрать из сохранённых…</option>${savedOptions}</select><input type="text" maxlength="80" value="${escapeHtml(item.name)}" placeholder="Название ресурса" data-ingredient-name="${index}"></div><input type="number" min="1" max="9999" value="${item.qty}" aria-label="Количество" data-ingredient-qty="${index}"><div class="ingredient-row-actions"><button type="button" data-ingredient-paste="${index}" title="Вставить фотографию из буфера обмена">▣ Вставить фото</button><button type="button" data-ingredient-remove="${index}" title="Удалить ингредиент">×</button></div></div>`).join(''):'<div class="empty">Ингредиентов пока нет. Нажмите «Добавить ингредиент».</div>';
+  $('ingredientList').querySelectorAll('[data-ingredient-pick]').forEach(select=>select.onchange=()=>{if(select.value==='')return;const saved=ingredientLibrary[Number(select.value)],index=Number(select.dataset.ingredientPick);if(!saved||!draftIngredients[index])return;draftIngredients[index].name=saved.name;if(saved.image)draftIngredients[index].image=saved.image;renderIngredients();toast(`Ингредиент «${saved.name}» выбран`)});
   $('ingredientList').querySelectorAll('[data-ingredient-name]').forEach(input=>input.oninput=()=>draftIngredients[Number(input.dataset.ingredientName)].name=input.value);
   $('ingredientList').querySelectorAll('[data-ingredient-qty]').forEach(input=>input.oninput=()=>draftIngredients[Number(input.dataset.ingredientQty)].qty=Math.max(1,Number(input.value)||1));
   $('ingredientList').querySelectorAll('[data-ingredient-file]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;draftIngredients[Number(input.dataset.ingredientFile)].image=await compressImage(file);renderIngredients()});
