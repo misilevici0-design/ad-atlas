@@ -48,8 +48,8 @@ jobs:
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: desktop-v1.3.0
-          name: AD Atlas для Windows v1.3.0
+          tag_name: desktop-v1.3.1
+          name: AD Atlas для Windows v1.3.1
           make_latest: true
           body: |
             Настольная версия AD Atlas для Windows 10/11 x64.
