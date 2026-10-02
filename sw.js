@@ -1,13 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'ad-atlas-20261002-5';
+const CACHE_NAME = 'ad-atlas-20261002-6';
 const CORE = [
   './',
   './index.html',
   './encyclopedia.html',
   './encyclopedia.css?v=20261002-3',
   './theme.css?v=20261002-5',
-  './encyclopedia.js?v=20261002-5',
+  './encyclopedia.js?v=20261002-6',
   './manifest.webmanifest',
   './favicon.svg',
   './pwa-192.png',
