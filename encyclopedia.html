@@ -8,7 +8,7 @@
   <title>Энциклопедия крафтов — AD Atlas</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=20261002-1">
-  <link rel="stylesheet" href="encyclopedia.css?v=20261002-1">
+  <link rel="stylesheet" href="encyclopedia.css?v=20261002-2">
 </head>
 <body class="encyclopedia-body">
   <header class="topbar">
@@ -35,7 +35,7 @@
     <form id="craftForm">
       <div class="dialog-header"><div><span class="eyebrow">РЕДАКТОР РЕЦЕПТА</span><h2 id="craftDialogTitle">Новый крафт</h2></div><button type="button" id="closeCraftDialog" aria-label="Закрыть">×</button></div>
       <div class="craft-form-scroll">
-        <div class="craft-form-grid"><label class="field">Название<input id="craftName" maxlength="80" required placeholder="Например: Батарейка"></label><label class="field">Категория<select id="craftCategory" required></select></label><label class="field">Количество на выходе<input id="craftOutputQty" type="number" min="1" max="9999" value="1" required></label><label class="field">Время создания<input id="craftTime" maxlength="30" placeholder="Например: 00:07"></label></div>
+        <div class="craft-form-grid"><label class="field">Название<input id="craftName" maxlength="80" required placeholder="Например: Батарейка"></label><label class="field">Категория<select id="craftCategory" required></select></label><label class="field">Количество на выходе<input id="craftOutputQty" type="number" min="1" max="9999" value="1" required></label><label class="field">Опыт XP<input id="craftXp" maxlength="20" placeholder="Например: 0.2"></label><label class="field">Время создания<input id="craftTime" maxlength="30" placeholder="Например: 00:07"></label></div>
         <label class="field">Где создать?<input id="craftPlace" maxlength="100" placeholder="Например: Производство электроники"></label>
         <label class="field">Описание<textarea id="craftDescription" maxlength="1000" placeholder="Дополнительная информация о рецепте"></textarea></label>
         <div class="image-editor"><div class="image-editor-preview" id="craftImagePreview"><span>Изображение результата</span></div><div><strong>Изображение предмета</strong><p>PNG, JPG или WEBP. Изображение будет уменьшено для экономии места.</p><div class="inline-actions"><label class="file-button">Выбрать файл<input id="craftImageFile" type="file" accept="image/*" hidden></label><button type="button" id="pasteCraftImage">Вставить из буфера</button><button type="button" id="removeCraftImage">Удалить</button></div></div></div>
@@ -47,6 +47,6 @@
   </dialog>
   <input id="craftImportFile" type="file" accept="application/json,.json" hidden>
   <div id="toast" role="status"></div>
-  <script src="encyclopedia.js?v=20261002-1"></script>
+  <script src="encyclopedia.js?v=20261002-2"></script>
 </body>
 </html>
