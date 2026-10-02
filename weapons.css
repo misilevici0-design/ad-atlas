@@ -1,0 +1,17 @@
+.weapons-body{min-height:100dvh;background:#0d0c0c;color:var(--text)}
+.weapons-body .topbar{background:linear-gradient(180deg,#1a1411,#130f0d)!important;border-bottom-color:#5b3022!important}
+.weapons-main{max-width:1540px;margin:0 auto;padding:42px clamp(18px,4vw,64px) 70px}
+.weapons-hero{display:flex;justify-content:space-between;align-items:end;gap:24px;padding-bottom:26px;margin-bottom:24px;border-bottom:1px solid #4a3026}
+.weapons-hero h1{font-size:clamp(2.4rem,5vw,4.6rem);margin:8px 0 4px;letter-spacing:-.05em}
+.weapons-hero p{color:var(--muted);margin:0;line-height:1.55}
+.weapons-hero button{background:#261914;border-color:#603829;white-space:nowrap}
+.weapons-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.weapon-card{overflow:hidden;border:1px solid #513226;border-radius:12px;background:#15100e;box-shadow:0 10px 30px #0007}
+.weapon-reference{width:100%;aspect-ratio:611/172;background-image:url('weapons-reference.png');background-repeat:no-repeat;background-color:#100d0c}
+.weapon-name-wrap{display:flex;align-items:center;gap:10px;padding:11px 13px;border-top:1px solid #412920}
+.weapon-name-wrap span{color:#f4511e;font-size:1rem}
+.weapon-name{width:100%;padding:9px 10px;border:1px solid transparent;border-radius:7px;background:transparent;color:#f4e8e2;font:600 .92rem/1.2 Inter,system-ui,sans-serif}
+.weapon-name:hover,.weapon-name:focus{background:#241813;border-color:#70402d;outline:0}
+.weapon-name::placeholder{color:#806f68}
+@media(max-width:900px){.weapons-grid{grid-template-columns:1fr}.weapons-main{padding-top:26px}.weapons-body .header-actions{display:none}}
+@media(max-width:650px){.weapons-hero{align-items:flex-start;flex-direction:column}.weapons-hero button{width:100%}.weapons-body .product-nav a{padding:0 6px;font-size:.68rem}.weapons-body .brand b{display:none}}

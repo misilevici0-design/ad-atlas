@@ -12,6 +12,8 @@ on:
       - "app.js"
       - "style.css"
       - "encyclopedia.*"
+      - "weapons.*"
+      - "weapons-reference.png"
       - ".github/workflows/windows-app.yml"
     tags:
       - "desktop-v*"
@@ -48,13 +50,13 @@ jobs:
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: desktop-v1.3.1
-          name: AD Atlas для Windows v1.3.1
+          tag_name: desktop-v1.3.2
+          name: AD Atlas для Windows v1.3.2
           make_latest: true
           body: |
             Настольная версия AD Atlas для Windows 10/11 x64.
 
-            Карта и энциклопедия переведены на единую тёмно-оранжевую палитру.
+            Добавлен отдельный раздел «Оружие» с 12 карточками и редактируемыми названиями.
 
             - `AD-Atlas-*-Setup.exe` — установщик с ярлыком.
             - `AD-Atlas-*-portable.exe` — переносная версия без установки.
