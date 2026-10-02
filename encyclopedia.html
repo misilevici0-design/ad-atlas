@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10191c">
+  <meta name="description" content="Энциклопедия AD Atlas: крафты, ингредиенты и места производства.">
+  <title>Энциклопедия крафтов — AD Atlas</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=20261002-1">
+  <link rel="stylesheet" href="encyclopedia.css?v=20261002-1">
+</head>
+<body class="encyclopedia-body">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-symbol">A<span>↗</span></span><b>AD <em>ATLAS</em></b></a>
+    <span class="divider"></span>
+    <nav class="product-nav" aria-label="Разделы сайта"><a href="index.html">Карта</a><a href="encyclopedia.html" class="active" aria-current="page">Энциклопедия</a></nav>
+    <div class="header-actions encyclopedia-header-actions"><span id="saveState">Хранится на этом устройстве</span><button class="primary" id="addCraftTop">＋ Добавить крафт</button></div>
+  </header>
+  <main class="encyclopedia-shell">
+    <aside class="encyclopedia-sidebar">
+      <div class="encyclopedia-title"><span class="eyebrow">БАЗА ЗНАНИЙ</span><h1>Крафты<br><span>и производство.</span></h1><label class="search-wrap"><span aria-hidden="true">⌕</span><input id="craftSearch" type="search" placeholder="Предмет или ингредиент…" aria-label="Поиск крафтов"></label></div>
+      <div class="category-title"><span>КАТЕГОРИИ</span><button id="addCraftCategory" title="Создать категорию">＋</button></div>
+      <div id="craftCategories" class="craft-categories"></div>
+      <div class="encyclopedia-data-actions"><button id="importCrafts">Импорт JSON</button><button id="exportCrafts">Экспорт JSON</button></div>
+      <p class="local-note">Все записи сохраняются только на вашем устройстве.</p>
+    </aside>
+    <section class="craft-content">
+      <div class="craft-hero"><div><span class="eyebrow">AD / ЭНЦИКЛОПЕДИЯ</span><h2 id="craftHeading">Все крафты</h2><p>Создавайте собственную базу рецептов и быстро находите нужные ресурсы.</p></div><button class="primary" id="addCraftEmpty">＋ Новый крафт</button></div>
+      <div class="craft-toolbar"><span id="craftStats">0 крафтов</span><button id="editCurrentCategory" hidden>✎ Переименовать</button><button id="deleteCurrentCategory" class="danger-button" hidden>Удалить категорию</button></div>
+      <div id="craftGrid" class="craft-grid"></div>
+    </section>
+  </main>
+  <dialog id="craftDialog">
+    <form id="craftForm">
+      <div class="dialog-header"><div><span class="eyebrow">РЕДАКТОР РЕЦЕПТА</span><h2 id="craftDialogTitle">Новый крафт</h2></div><button type="button" id="closeCraftDialog" aria-label="Закрыть">×</button></div>
+      <div class="craft-form-scroll">
+        <div class="craft-form-grid"><label class="field">Название<input id="craftName" maxlength="80" required placeholder="Например: Батарейка"></label><label class="field">Категория<select id="craftCategory" required></select></label><label class="field">Количество на выходе<input id="craftOutputQty" type="number" min="1" max="9999" value="1" required></label><label class="field">Время создания<input id="craftTime" maxlength="30" placeholder="Например: 00:07"></label></div>
+        <label class="field">Где создать?<input id="craftPlace" maxlength="100" placeholder="Например: Производство электроники"></label>
+        <label class="field">Описание<textarea id="craftDescription" maxlength="1000" placeholder="Дополнительная информация о рецепте"></textarea></label>
+        <div class="image-editor"><div class="image-editor-preview" id="craftImagePreview"><span>Изображение результата</span></div><div><strong>Изображение предмета</strong><p>PNG, JPG или WEBP. Изображение будет уменьшено для экономии места.</p><div class="inline-actions"><label class="file-button">Выбрать файл<input id="craftImageFile" type="file" accept="image/*" hidden></label><button type="button" id="pasteCraftImage">Вставить из буфера</button><button type="button" id="removeCraftImage">Удалить</button></div></div></div>
+        <div class="ingredients-head"><div><span class="eyebrow">СОСТАВ</span><h3>Ингредиенты</h3></div><button type="button" id="addIngredient">＋ Добавить ингредиент</button></div>
+        <div id="ingredientList" class="ingredient-list"></div>
+      </div>
+      <div class="dialog-actions"><button type="button" id="deleteCraft" class="danger-button" hidden>Удалить крафт</button><span></span><button type="button" id="cancelCraftDialog">Отмена</button><button type="submit" class="primary">Сохранить</button></div>
+    </form>
+  </dialog>
+  <input id="craftImportFile" type="file" accept="application/json,.json" hidden>
+  <div id="toast" role="status"></div>
+  <script src="encyclopedia.js?v=20261002-1"></script>
+</body>
+</html>

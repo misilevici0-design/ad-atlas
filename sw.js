@@ -1,15 +1,18 @@
 'use strict';
 
-const CACHE_NAME = 'ad-atlas-20260929-2';
+const CACHE_NAME = 'ad-atlas-20261002-1';
 const CORE = [
   './',
   './index.html',
+  './encyclopedia.html',
+  './encyclopedia.css?v=20261002-1',
+  './encyclopedia.js?v=20261002-1',
   './manifest.webmanifest',
   './favicon.svg',
   './pwa-192.png',
   './pwa-512.png',
-  './style.css?v=20260929-2',
-  './app.js?v=20260929-2',
+  './style.css?v=20261002-1',
+  './app.js?v=20261002-1',
   './leaflet.css',
   './leaflet.js',
   './data.js',
@@ -76,7 +79,7 @@ self.addEventListener('fetch', event => {
       const copy = response.clone();
       caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
       return response;
-    }).catch(() => caches.match('./index.html')));
+    }).catch(() => new URL(event.request.url).pathname.endsWith('/encyclopedia.html') ? caches.match('./encyclopedia.html') : caches.match('./index.html')));
     return;
   }
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {

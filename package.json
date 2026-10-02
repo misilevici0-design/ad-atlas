@@ -1,6 +1,6 @@
 {
   "name": "ad-atlas-desktop",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Настольная интерактивная карта AD Atlas",
   "main": "desktop/main.js",
   "author": "misilevici0-design",
@@ -24,6 +24,9 @@
     "files": [
       "desktop/**/*",
       "index.html",
+      "encyclopedia.html",
+      "encyclopedia.js",
+      "encyclopedia.css",
       "app.js",
       "style.css",
       "data.js",
