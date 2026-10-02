@@ -9,7 +9,7 @@ function createWindow() {
     minHeight: 650,
     title: 'AD Atlas',
     icon: path.join(__dirname, 'icon.ico'),
-    backgroundColor: '#10191c',
+    backgroundColor: '#0d0c0c',
     autoHideMenuBar: true,
     show: false,
     webPreferences: {

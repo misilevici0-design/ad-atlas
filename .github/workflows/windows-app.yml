@@ -48,13 +48,13 @@ jobs:
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: desktop-v1.2.0
-          name: AD Atlas для Windows v1.2.0
+          tag_name: desktop-v1.3.0
+          name: AD Atlas для Windows v1.3.0
           make_latest: true
           body: |
             Настольная версия AD Atlas для Windows 10/11 x64.
 
-            Энциклопедия крафтов оформлена в стиле внутриигрового меню.
+            Карта и энциклопедия переведены на единую тёмно-оранжевую палитру.
 
             - `AD-Atlas-*-Setup.exe` — установщик с ярлыком.
             - `AD-Atlas-*-portable.exe` — переносная версия без установки.
