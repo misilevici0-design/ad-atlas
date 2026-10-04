@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AD Atlas Minimap</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <main id="overlay">
+    <canvas id="mapCanvas" width="760" height="520"></canvas>
+    <div class="player-arrow" id="playerArrow"></div>
+    <header><b>AD <span>ATLAS</span></b><small id="status">Запуск…</small><button id="settingsButton" title="Настройки">⚙</button></header>
+    <section id="panel">
+      <div class="panel-title"><b>Миникарта FiveM</b><div><button id="minimize">—</button><button id="close">×</button></div></div>
+      <p id="help">Нажмите в игре «Собрать координаты». Программа прочитает их из буфера и переместит маркер.</p>
+      <label>Масштаб <input id="zoom" type="range" min="0.6" max="3.5" step="0.1" value="1.6"></label>
+      <label><input id="autoTrack" type="checkbox" checked> Экспериментальное распознавание миникарты</label>
+      <div class="coords"><span>X <b id="xValue">485.45</b></span><span>Y <b id="yValue">−1378.06</b></span></div>
+      <button id="lockButton">🔒 Закрепить поверх игры (F9)</button>
+      <small>F8 — показать/скрыть · F9 — закрепить · F10 — настройки</small>
+    </section>
+    <video id="capture" autoplay muted playsinline></video>
+    <canvas id="captureCanvas" width="320" height="200"></canvas>
+  </main>
+  <img id="mapImage" src="assets/map.webp" alt="" hidden>
+  <script>window.Module={onRuntimeInitialized:()=>window.dispatchEvent(new Event('opencv-ready'))}</script>
+  <script async src="assets/opencv.js"></script>
+  <script src="renderer.js"></script>
+</body></html>

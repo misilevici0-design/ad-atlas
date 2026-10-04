@@ -1,0 +1,53 @@
+name: Windows minimap overlay
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "minimap-overlay/**"
+      - "map.webp"
+      - ".github/workflows/minimap-overlay.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: minimap-overlay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prepare map and OpenCV
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force assets | Out-Null
+          Copy-Item ..\map.webp assets\map.webp
+          Invoke-WebRequest -Uri https://docs.opencv.org/4.x/opencv.js -OutFile assets\opencv.js
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build portable EXE
+        run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AD-Atlas-Minimap-Windows
+          path: minimap-overlay/dist/*.exe
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: minimap-v0.1.0
+          name: AD Atlas Minimap v0.1.0
+          make_latest: false
+          body: |
+            Пробная внешняя миникарта для FiveM.
+
+            F8 — показать/скрыть, F9 — закрепить, F10 — настройки.
+          files: minimap-overlay/dist/*.exe

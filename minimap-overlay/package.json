@@ -1,0 +1,26 @@
+{
+  "name": "ad-atlas-minimap",
+  "version": "0.1.0",
+  "description": "Внешняя миникарта AD Atlas для FiveM",
+  "main": "main.js",
+  "author": "AD Atlas",
+  "license": "MIT",
+  "scripts": {
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "37.2.6",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "by.adatlas.minimap",
+    "productName": "AD Atlas Minimap",
+    "asar": true,
+    "directories": {"output": "dist"},
+    "files": ["main.js", "preload.js", "index.html", "styles.css", "renderer.js", "assets/**/*"],
+    "win": {
+      "target": [{"target": "portable", "arch": ["x64"]}],
+      "artifactName": "AD-Atlas-Minimap-${version}-portable.${ext}"
+    }
+  }
+}
