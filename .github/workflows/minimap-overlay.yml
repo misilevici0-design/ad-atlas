@@ -41,11 +41,11 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: minimap-v0.2.0
-          name: AD Atlas Minimap v0.2.0
+          tag_name: minimap-v0.3.0
+          name: AD Atlas Minimap v0.3.0
           make_latest: false
           body: |
-            Более плавная внешняя миникарта для FiveM: локальное распознавание дорог, защита от ложных скачков и ручная калибровка позиции.
+            Точные границы штатной карты GTA V, прямой захват миникарты, локальное распознавание дорог, защита от ложных скачков и ручная калибровка.
 
             F8 — показать/скрыть, F9 — закрепить, F10 — настройки.
           files: minimap-overlay/dist/*.exe
