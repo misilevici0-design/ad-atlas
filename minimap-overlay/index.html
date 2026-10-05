@@ -7,10 +7,11 @@
     <header><b>AD <span>ATLAS</span></b><small id="status">Запуск…</small><button id="settingsButton" title="Настройки">⚙</button></header>
     <section id="panel">
       <div class="panel-title"><b>Миникарта FiveM</b><div><button id="minimize">—</button><button id="close">×</button></div></div>
-      <p id="help">Нажмите в игре «Собрать координаты». Программа прочитает их из буфера и переместит маркер.</p>
+      <p id="help">Нажмите в игре «Собрать координаты». Если маркер смещён, нажмите «Исправить позицию» и укажите своё место на полной карте.</p>
       <label>Масштаб <input id="zoom" type="range" min="0.6" max="3.5" step="0.1" value="1.6"></label>
       <label><input id="autoTrack" type="checkbox" checked> Экспериментальное распознавание миникарты</label>
       <div class="coords"><span>X <b id="xValue">485.45</b></span><span>Y <b id="yValue">−1378.06</b></span></div>
+      <div class="calibration-actions"><button id="calibrateButton">🎯 Исправить позицию</button><button id="resetCalibration" title="Сбросить калибровку">↺</button></div>
       <button id="lockButton">🔒 Закрепить поверх игры (F9)</button>
       <small>F8 — показать/скрыть · F9 — закрепить · F10 — настройки</small>
     </section>

@@ -1,6 +1,6 @@
 {
   "name": "ad-atlas-minimap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Внешняя миникарта AD Atlas для FiveM",
   "main": "main.js",
   "author": "AD Atlas",
