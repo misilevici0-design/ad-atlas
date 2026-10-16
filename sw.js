@@ -1,10 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'ad-atlas-20261016-3';
+const CACHE_NAME = 'ad-atlas-20261016-4';
 const CORE = [
   './',
   './index.html',
   './encyclopedia.html',
+  './mutant-calculator.html',
+  './mutant-calculator.css?v=20261016-1',
+  './mutant-calculator.js?v=20261016-1',
   './encyclopedia.css?v=20261016-1',
   './theme.css?v=20261002-5',
   './encyclopedia.js?v=20261016-2',
@@ -78,9 +81,9 @@ self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).then(response => {
       const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+      caches.open(CACHE_NAME).then(cache => cache.put(new URL(event.request.url).pathname.endsWith('/mutant-calculator.html') ? './mutant-calculator.html' : new URL(event.request.url).pathname.endsWith('/encyclopedia.html') ? './encyclopedia.html' : './index.html', copy));
       return response;
-    }).catch(() => new URL(event.request.url).pathname.endsWith('/encyclopedia.html') ? caches.match('./encyclopedia.html') : caches.match('./index.html')));
+    }).catch(() => new URL(event.request.url).pathname.endsWith('/mutant-calculator.html') ? caches.match('./mutant-calculator.html') : new URL(event.request.url).pathname.endsWith('/encyclopedia.html') ? caches.match('./encyclopedia.html') : caches.match('./index.html')));
     return;
   }
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {

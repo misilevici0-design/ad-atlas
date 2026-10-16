@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#171210">
+  <meta name="description" content="Калькулятор обмена частей мутантов на хеликсы в AD Atlas.">
+  <title>Калькулятор частей мутантов — AD Atlas</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=20261002-3">
+  <link rel="stylesheet" href="theme.css?v=20261002-5">
+  <link rel="stylesheet" href="mutant-calculator.css?v=20261016-1">
+</head>
+<body class="calculator-body">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-symbol">A<span>↗</span></span><b>AD <em>ATLAS</em></b></a><span class="divider"></span>
+    <nav class="product-nav" aria-label="Разделы сайта"><a href="index.html">Карта</a><a href="encyclopedia.html">Энциклопедия</a><a href="mutant-calculator.html" class="active" aria-current="page">Калькулятор</a></nav>
+  </header>
+  <main class="calculator-main">
+    <div class="calculator-intro"><span class="eyebrow">AD / ОБМЕН РЕСУРСОВ</span><h1>Части мутантов → хеликсы</h1><p>Укажите, сколько частей у вас есть. Калькулятор сразу покажет доход от обмена и оставшиеся предметы.</p></div>
+    <form id="calculatorForm" class="calculator-layout">
+      <section class="calculator-panel" aria-labelledby="partsHeading">
+        <div class="calculator-panel-head"><h2 id="partsHeading">Ваши трофеи</h2><button type="button" id="resetCalculator">Сбросить</button></div>
+        <div class="column-head" aria-hidden="true"><span>Часть / курс</span><span>Количество</span><span style="text-align:right">Хеликсы</span></div>
+        <div id="partRows"></div>
+      </section>
+      <aside class="calculator-summary" aria-label="Результат расчёта">
+        <div class="summary-label">Итого к обмену</div>
+        <div aria-live="polite" aria-atomic="true"><output id="totalHelix" class="total-helix">0</output><span class="helix-unit">хеликсов</span></div>
+        <div class="summary-divider"></div>
+        <div class="summary-line"><span>Всего частей</span><b id="totalParts">0</b></div>
+        <p id="totalRest" class="remainder-total">Останется после обмена: 0 шт.</p>
+        <div class="summary-divider"></div>
+        <label class="mode-toggle"><input id="proportional" type="checkbox"><span>Считать пропорционально</span></label>
+        <p class="calc-note">По умолчанию учитываются только полные наборы по указанному курсу. Пропорциональный режим показывает стоимость каждой части, включая неполные наборы.</p>
+      </aside>
+    </form>
+    <noscript><p>Для расчёта включите JavaScript в браузере.</p></noscript>
+  </main>
+  <script src="mutant-calculator.js?v=20261016-1"></script>
+</body>
+</html>
